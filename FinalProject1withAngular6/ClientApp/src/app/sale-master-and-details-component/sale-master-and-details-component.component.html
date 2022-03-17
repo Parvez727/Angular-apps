@@ -1,0 +1,195 @@
+<style>
+  .form-group label {
+    justify-content: left !important;
+  }
+</style>
+
+
+<div>
+
+
+  <form>
+
+    <h1>
+      Attendance Table CRUD
+    </h1>
+    <div class="row">
+      <div class="col-md-6">
+        <h2>Employee Table</h2>
+        <div class="form-group">
+          <label for="saleid">saleid</label>
+          <input id="saleid" name="saleid" #saleid class="form-control" (input)="Saleschange()" [(ngModel)]="saleid2" />
+        </div>
+
+        <div class="form-group form-inline">
+          <label class="col-md-4 text-left" for="masterdate">masterdate:</label>
+          <input type="date" name="masterdate" id="masterdate" #masterdate [value]=masterdate2 class="form-control col-md-8" [(ngModel)]="masterdate2" />
+        </div>
+
+        <div class="form-group">
+          <label for="partyid"> partyid</label>
+          <input id="partyid" name="partyid" #partyid [value]=partyid2 class="form-control" [(ngModel)]="partyid2" />
+        </div>
+
+
+        
+
+
+      </div>
+      <div class="col-md-6">
+        <h2>Employee Table</h2>
+
+
+        <div class="form-group">
+          <label class="col-md-4 text-left" for="slno">slno:</label>
+          <input name="slno" id="slno" #slno [value]=slno2 class="form-control col-md-8" [(ngModel)]=slno2 />
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-4 text-left" for="itemcode">itemcode:</label>
+          <input name="itemcode" id="itemcode" #itemcode [value]=itemcode2 class="form-control col-md-8" [(ngModel)]="itemcode2" />
+        </div>
+
+        <div class="form-group form-inline">
+          <label class="col-md-4 text-left" for="detaildate">detaildate:</label>
+          <input type="date" name="detaildate" id="detaildate" #detaildate [value]=detaildate2 class="form-control col-md-8" [(ngModel)]="detaildate2" />
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-4 text-left" for="costprice">costprice:</label>
+          <input name="costprice" id="costprice" #costprice [value]=costprice2  class="form-control col-md-8" [(ngModel)]="costprice2" (input)="TotalChange()"/>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-4 text-left" for="qty">qty:</label>
+          <input name="qty" id="qty" #qty [value]=qty2 class="form-control col-md-8" [(ngModel)]="qty2" (input)="TotalChange()"/>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-4 text-left" for="total1">total:</label>
+          <input name="total1" id="total1" #total [value]=total3  class="form-control col-md-8" [(ngModel)]="total3" />
+        </div>
+
+        <div>
+
+          <button type="button" (click)="addsaledetails(saleid.value, slno.value,itemcode.value ,detaildate.value,costprice.value,qty.value,total.value)" class="btn-primary btn mr-3">Add</button>
+          <button type="button" (click)="updateSaledetail(saleid, slno,itemcode,detaildate,costprice,qty,total )" class="btn btn-info mr-3">Update</button>
+          <button type="button" (click)="deleteSaledetails()" class="btn btn-success mr-3">Delete</button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </form>
+
+  <br /><br />
+
+
+
+
+  <div class="row col-md-8">
+   
+    <table class="table table-condensed">
+      <tr>
+        <th>SL No</th>
+        <th>SaleDetails ID</th>
+        <th>Serial Number</th>
+        <!--<th>employeeid</th>-->
+        <th>Itemcode</th>
+        <th>Date</th>
+        <th>Cost Price</th>
+        <th>Qty</th>
+        <th>Total</th>
+
+
+
+
+      </tr>
+      <tr *ngFor="let item of saledetails let i=index" (click)="show(i,item.saleid,item.slno, item.itemcode , item.detaildate, item.costprice, item.qty, item.total)">
+        <td>
+          {{i+1}}
+        </td>
+        <td> {{item.saleid}}</td>
+        <td> {{item.slno}}</td>
+        <td> {{item.itemcode}}</td>
+        <td> {{item.detaildate | date:'yyyy-MM-dd'}}</td>
+        <td> {{item.costprice}}</td>
+        <td> {{item.qty}}</td>
+        <td> {{item.total}}</td>
+
+      </tr>
+    </table>
+    <div class="col-md-12">
+      <div class="form-group">
+        <label for="total" class="col-md-6 text-right" style="font-weight:700">Total Amount  :</label>
+        <input id="total" name="total" #total [value]=total2 class=" col-md-6"  (input)="FinalValue()" [(ngModel)]="total2" />
+      </div>
+
+
+
+      <div class="form-group">
+        <label for="discount" class="col-md-6 text-right" style="font-weight:700">Discount : </label>
+        <input id="discount" name="discount" #discount class="col-md-6" [(ngModel)]="discount2" (input)="FinalValue()" />
+      </div>
+
+      <div class="form-group">
+        <label for="net" class="col-md-6 text-right" style="font-weight:700">Net value : </label>
+        <input id="net" name="net" #net [value]=net2 class="col-md-6" [(ngModel)]="net2" (input)="FinalValue()" />
+      </div>
+
+      <div class="form-group">
+        <label for="paid" class="col-md-6 text-right" style="font-weight:700">Paid : </label>
+        <input id="paid" name="paid" #paid [value]=paid2 class="col-md-6" [(ngModel)]="paid2" (input)="FinalValue()" />
+      </div>
+
+      <div class="form-group">
+        <label for="due" class="col-md-6 text-right" style="font-weight:700">Dud : </label>
+        <input id="due" name="due" #due [value]=due2 class="col-md-6" [(ngModel)]="due2" (input)="FinalValue()" />
+      </div>
+    </div>
+    <br />
+
+    <hr />
+    <div>
+      <button type="button" (click)="saveAll()" class="btn-primary btn mr-3">Save</button>
+      <button type="button" (click)="deleteAll()" class="btn btn-success mr-3">Drop</button>
+    </div>
+  
+  </div>
+</div>
+
+<!--<div>
+
+
+  <form class="col-md-4">
+
+    <h1>
+      Items CRUD in Angular6!
+    </h1>
+    <div class="row">
+      <div class="col-md-10">
+
+
+
+
+
+        <button type="button" (click)="addAttendance()" class="btn-primary btn mr-3">Add</button>
+        <button type="button" (click)="updateAttendance(attendanceid, slno,employeeid,presenttime)" class="btn btn-info mr-3">Update</button>
+        <button type="button" (click)="deleteAttendance()" class="btn btn-success mr-3">Delete</button>
+      </div>
+    </div>
+
+  </form>
+
+
+
+
+
+
+  <div class="row col-md-8">
+
+
+  </div>
+</div>-->

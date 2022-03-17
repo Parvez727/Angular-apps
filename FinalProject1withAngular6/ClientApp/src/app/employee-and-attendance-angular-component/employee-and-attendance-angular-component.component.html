@@ -1,0 +1,198 @@
+<style>
+  .form-group label {
+    justify-content: left !important;
+  }
+</style>
+
+
+<div>
+
+
+  <form [formGroup]="angForm" novalidate>
+
+    <h1>
+      Attendance Table CRUD
+    </h1>
+    <div class="row">
+      <div class="col-md-6">
+        <h2>Employee Table</h2>
+        <div class="form-group">
+          <label for="employeeid">employeeid</label>
+          <input id="employeeid" name="employeeid" #employeeid [value]=employeeid2 class="form-control" (input)="EmployeeChange()" [(ngModel)]="employeeid2" formControlName="employeeid" placeholder="Employee Id" />
+          <div *ngIf="angForm.controls['employeeid'].invalid && (angForm.controls['employeeid'].dirty || angForm.controls['employeeid'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['employeeid'].errors.required">
+              employeeid is required.
+            </div>
+          </div>
+
+        </div>
+
+        <div class="form-group">
+          <label for="name"> Name</label>
+          <input id="name" name="name" #name [value]=name2 class="form-control" [(ngModel)]="name2" formControlName="name" placeholder="name"/>
+          <div *ngIf="angForm.controls['name'].invalid && (angForm.controls['name'].dirty || angForm.controls['name'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['name'].errors.required">
+              name is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="departmentid"> departmentid:</label>
+          <select name="departmentid" id="departmentid" #departmentid [value]=departmentid2 class="form-control" [(ngModel)]="departmentid2">
+            <option *ngFor="let a of departmented" value="{{a.departmentid}}">{{a.departmentname}}</option>
+          </select>
+
+        </div>
+
+        <div class="form-group">
+          <label for="activesection">activesection</label>
+          <input id="activesection" name="activesection" #activesection [value]=activesection2 class="form-control" [(ngModel)]="activesection2" formControlName="activesection" placeholder="activesection"/>
+          <div *ngIf="angForm.controls['activesection'].invalid && (angForm.controls['activesection'].dirty || angForm.controls['activesection'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['activesection'].errors.required">
+              activesection is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group form-inline">
+          <label class="col-md-4 text-left" for="joindate">joindate:</label>
+          <input type="date" name="joindate" id="joindate" #joindate [value]=joindate2 class="form-control col-md-8" [(ngModel)]="joindate2" formControlName="joindate" placeholder="joindate"/>
+          <div *ngIf="angForm.controls['joindate'].invalid && (angForm.controls['joindate'].dirty || angForm.controls['joindate'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['joindate'].errors.required">
+              joindate is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="isactive">isactive</label>
+          <input type="checkbox" id="isactive" name="isactive" #isactive [value]=isactive2 class="form-control" [(ngModel)]="isactive2" formControlName="isactive" placeholder="isactive"/>
+          <div *ngIf="angForm.controls['isactive'].invalid && (angForm.controls['isactive'].dirty || angForm.controls['isactive'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['isactive'].errors.required">
+              isactive is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group form-inline">
+          <label class="image-upload-container btn btn-bwm col-md-4 text-left">
+            <span>Select Image</span>
+          </label>
+
+          <input type="file" name="picture" id="picture" (change)="onFileChanged($event)" class=" col-md-8" [(ngModel)]="picture2" formControlName="picture" placeholder="picture"/>
+          <div *ngIf="angForm.controls['picture'].invalid && (angForm.controls['picture'].dirty || angForm.controls['picture'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['picture'].errors.required">
+              picture is required.
+            </div>
+          </div>
+          <br />
+          <div>
+            <img width="100" src="/uploads/{{this.picture2}}" />
+          </div>
+        </div>
+
+
+
+
+
+
+        <!--<button type="button" (click)="addEmployeed()" class="btn-primary btn mr-3">Add</button>
+        <button type="button" (click)="updateEmployeed(employeeid, name,departmentid,activesection,joindate,isactive)" class="btn btn-info mr-3">Update</button>
+        <button type="button" (click)="deleteEmployeed()" class="btn btn-success mr-3">Delete</button>-->
+      </div>
+      <div class="col-md-6">
+        <h2>Employee Table</h2>
+        <div class="form-group">
+          <label class="col-md-4 text-left" for="attendanceid">attendanceid:</label>
+          <input name="attendanceid" id="attendanceid" #attendanceid [value]=attendanceid2 class="form-control col-md-8" [(ngModel)]="attendanceid2" formControlName="attendanceid" placeholder="attendanceid"/>
+          <div *ngIf="angForm.controls['attendanceid'].invalid && (angForm.controls['attendanceid'].dirty || angForm.controls['attendanceid'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['attendanceid'].errors.required">
+              attendanceid is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-4 text-left" for="slno">slno:</label>
+          <input name="slno" id="slno" #slno [value]=slno2 class="form-control col-md-8" [(ngModel)]=slno2 formControlName="slno" placeholder="slno"/>
+          <div *ngIf="angForm.controls['slno'].invalid && (angForm.controls['slno'].dirty || angForm.controls['slno'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['slno'].errors.required">
+              slno is required.
+            </div>
+          </div>
+        </div>
+
+        <!--<div class="form-group">
+          <label for="employeeid"> employeeid:</label>
+          <select name="employeeid" id="employeeid" #employeeid [value]=employeeid2 class="form-control" [(ngModel)]="employeeid2">
+            <option *ngFor="let a of employeed" value="{{a.employeeid}}">{{a.name}}</option>
+          </select>
+
+        </div>-->
+
+        <div class="form-group">
+          <label class="col-md-4 text-left" for="presenttime">presenttime:</label>
+          <input type="date" name="presenttime" id="presenttime" #presenttime [value]=presenttime2 class="form-control col-md-8" [(ngModel)]="presenttime2" formControlName="presenttime" placeholder="presenttime"/>
+          <div *ngIf="angForm.controls['presenttime'].invalid && (angForm.controls['presenttime'].dirty || angForm.controls['presenttime'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['presenttime'].errors.required">
+              presenttime is required.
+            </div>
+          </div>
+        </div>
+
+        <div>
+
+          <button type="submit" (click)="addAttendance(attendanceid.value, slno.value,presenttime.value)" class="btn-primary btn mr-3">Add</button>
+          <button type="submit" (click)="updateAttendance(attendanceid, slno,employeeid,presenttime)" class="btn btn-info mr-3">Update</button>
+          <button type="button" (click)="deleteAttendance()" class="btn btn-success mr-3">Delete</button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </form>
+
+</div>
+
+
+
+<div class="row">
+  <div class="row col-md-8">
+
+    <table class="table table-condensed">
+      <tr>
+        <th>SL No</th>
+        <th>attendanceid</th>
+        <th>Serial Number</th>
+        <!--<th>employeeid</th>-->
+        <th>presenttime2</th>
+
+
+
+
+
+      </tr>
+      <tr *ngFor="let item of items let i=index" (click)="show(i,item.attendanceid,item.slno, item.presenttime)">
+        <td>
+          {{i+1}}
+        </td>
+        <td> {{item.attendanceid}}</td>
+        <td> {{item.slno}}</td>
+
+        <td> {{item.presenttime | date:'yyyy-MM-dd'}}</td>
+
+      </tr>
+    </table>
+
+
+    <hr />
+    <button type="button" (click)="saveAll()" class="btn-primary btn mr-3">Save</button>
+    <button type="button" (click)="deleteAll()" class="btn btn-success mr-3">Drop</button>
+  </div>
+</div>
+
+
+

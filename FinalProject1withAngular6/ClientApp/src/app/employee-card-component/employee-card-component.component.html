@@ -1,0 +1,14 @@
+<p>employee-card-component works!</p>
+<div class="card" myRed>
+  <div class="card-header">
+    <h3 myRed>Employee and attendance</h3>
+  </div>
+  <div *ngFor="let item of items let i=index" class="card-body">
+    <a href="https://localhost:44341/employeeAndattendance?employeeid={{item.employeeid}}">{{item.employeeid}} {{item.name}} <img width="100" src="/uploads/{{item.picture}}" /></a>
+
+  </div>
+  <div class="card-footer">
+    <button type="button" class="btn btn-primary" id="addnew" (click)="new()">Add New</button>
+  </div>
+
+</div>

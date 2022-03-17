@@ -1,0 +1,86 @@
+<div class="row">
+
+  <div class=" col-md-4">
+    <form [formGroup]="angForm" novalidate>
+
+      <h1>
+        Bonus Setting Table CRUD
+      </h1>
+      <div>
+        <div class="col-md-10">
+
+          <div class="form-group">
+            <label for="bonusid">bonusid</label>
+            <input id="bonusid" name="bonusid" #bonusid class="form-control" (input)="BonusChange()" [(ngModel)]="bonusid2" formControlName="bonusid" placeholder="bonusid" />
+            <div *ngIf="angForm.controls['bonusid'].invalid && (angForm.controls['bonusid'].dirty || angForm.controls['bonusid'].touched)" class="alert alert-danger">
+              <div *ngIf="angForm.controls['bonusid'].errors.required">
+                bonusid is required.
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <label for="bonusname">bonusname:</label>
+            <input name="bonusname" id="bonusname" #bonusname class="form-control col-md-8" [(ngModel)]="bonusname2" formControlName="bonusname" placeholder="bonusname" />
+            <div *ngIf="angForm.controls['bonusname'].invalid && (angForm.controls['bonusname'].dirty || angForm.controls['bonusname'].touched)" class="alert alert-danger">
+              <div *ngIf="angForm.controls['bonusname'].errors.required">
+                bonusname is required.
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <label for="percent">percent</label>
+            <input id="percent" name="percent" #percent class="form-control" [(ngModel)]="percent2" formControlName="percent" placeholder="percent" />
+            <div *ngIf="angForm.controls['percent'].invalid && (angForm.controls['percent'].dirty || angForm.controls['percent'].touched)" class="alert alert-danger">
+              <div *ngIf="angForm.controls['percent'].errors.required">
+                percent is required.
+              </div>
+            </div>
+
+          </div>
+
+
+
+
+
+          <button type="button" (click)="addBonus()" class="btn-primary btn mr-3">Add</button>
+          <button type="button" (click)="updateBonus(bonusid, bonusname,percent)" class="btn btn-info mr-3">Update</button>
+          <button type="button" (click)="deleteBonus()" class="btn btn-success mr-3">Delete</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+
+
+
+
+
+  <div class=" col-md-8">
+    <table class="table table-condensed">
+      <tr>
+        <th>SL No</th>
+        <th>Bonus ID</th>
+        <th>Bonus Name</th>
+        <th>Percent</th>
+
+      </tr>
+      <tr *ngFor="let item of bonus let i=index" (click)="showBonus(i,item.bonusid,item.bonusname, item.percent)">
+        <td>
+          {{i+1}}
+        </td>
+        <td> {{item.bonusid}}</td>
+        <td> {{item.bonusname }}</td>
+        <td> {{item.percent}}</td>
+
+
+      </tr>
+    </table>
+
+  </div>
+</div>
+

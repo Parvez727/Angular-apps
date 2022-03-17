@@ -1,0 +1,85 @@
+<div class="row">
+
+  <div class=" col-md-4">
+    <form [formGroup]="angForm" novalidate>
+
+      <h1>
+        Holiday Table CRUD
+      </h1>
+      <div>
+        <div class="col-md-10">
+
+          <div class="form-group">
+            <label for="holidayid">holidayid</label>
+            <input id="holidayid" name="holidayid" #holidayid class="form-control" (input)="HolidayChange()" [(ngModel)]="holidayid2" formControlName="holidayid" placeholder="holidayid" />
+            <div *ngIf="angForm.controls['holidayid'].invalid && (angForm.controls['holidayid'].dirty || angForm.controls['holidayid'].touched)" class="alert alert-danger">
+              <div *ngIf="angForm.controls['holidayid'].errors.required">
+                holidayid is required.
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-4 text-left" for="date">date:</label>
+            <input type="date" name="date" id="date" #date class="form-control col-md-8" [(ngModel)]="date2" formControlName="date" placeholder="date" />
+            <div *ngIf="angForm.controls['date'].invalid && (angForm.controls['date'].dirty || angForm.controls['date'].touched)" class="alert alert-danger">
+              <div *ngIf="angForm.controls['date'].errors.required">
+                date is required.
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <label for="reason">reason</label>
+            <input id="reason" name="reason" #reason class="form-control" [(ngModel)]="reason2" formControlName="reason" placeholder="reason" />
+            <div *ngIf="angForm.controls['reason'].invalid && (angForm.controls['reason'].dirty || angForm.controls['reason'].touched)" class="alert alert-danger">
+              <div *ngIf="angForm.controls['reason'].errors.required">
+                reason is required.
+              </div>
+            </div>
+
+          </div>
+
+
+
+
+
+          <button type="button" (click)="addHoliday()" class="btn-primary btn mr-3">Add</button>
+          <button type="button" (click)="updateHoliday(holidayid, date,reason)" class="btn btn-info mr-3">Update</button>
+          <button type="button" (click)="deleteHoliday()" class="btn btn-success mr-3">Delete</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+
+
+
+
+
+  <div class=" col-md-8">
+    <table class="table table-condensed">
+      <tr>
+        <th>SL No</th>
+        <th>Holiday ID</th>
+        <th>Date</th>
+        <th>Reason</th>
+       
+      </tr>
+      <tr *ngFor="let item of holiday let i=index" (click)="showHoliday(i,item.holidayid,item.date, item.reason)">
+        <td>
+          {{i+1}}
+        </td>
+        <td> {{item.holidayid}}</td>
+        <td> {{item.date | date:'yyyy-MM-dd'}}</td>
+        <td> {{item.reason}}</td>
+
+      
+      </tr>
+    </table>
+    
+  </div>
+</div>
